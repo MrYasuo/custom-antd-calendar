@@ -6,6 +6,9 @@ import { useCalendarContext, useModalContext } from "@/contexts";
 import Title from "./Title";
 import DateRange from "./DateRange";
 import Description from "./Description";
+import Teacher from "./Teacher";
+import Check from "./Check";
+import Lecture from "./Lecture";
 
 interface MyModalProps extends ModalProps {
 	data: any;
@@ -20,7 +23,10 @@ const MyModal = ({ data = {}, ...props }: MyModalProps) => {
 		setEndDate,
 		setDateEditState,
 		setContent,
-		setTeacherName,
+		setTeacher,
+		setLecture,
+		teacher,
+		lecture,
 	} = useModalContext();
 	const { currentDate } = useCalendarContext();
 
@@ -30,10 +36,12 @@ const MyModal = ({ data = {}, ...props }: MyModalProps) => {
 		setEndDate(data.endDate);
 		setDateEditState(!(data.startDate && data.endDate) ? true : false);
 		setContent(data.content);
-		setTeacherName(data.teacherName);
+		setTeacher(data.teacherId);
+		setLecture(data.lectureId);
 	}, [
 		data.title,
-		data.teacherName,
+		data.teacherId,
+		data.lectureId,
 		data.content,
 		data.startDate,
 		data.endDate,
@@ -52,7 +60,12 @@ const MyModal = ({ data = {}, ...props }: MyModalProps) => {
 					<DateRange />
 				</Space>
 			}>
-			<Description />
+			<Space direction="vertical">
+				<Description />
+				<Teacher teacherId={teacher} />
+				<Lecture lectureId={lecture} />
+				<Check />
+			</Space>
 		</Modal>
 	);
 };

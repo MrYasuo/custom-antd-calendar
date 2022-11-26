@@ -1,3 +1,3 @@
-import { fakeMonthData } from "./fakeData";
+import { fakeMonthData, teacherLists, lectureLists } from "./fakeData";
 
-export { fakeMonthData };
+export { fakeMonthData, teacherLists, lectureLists };

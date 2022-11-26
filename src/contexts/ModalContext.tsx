@@ -19,8 +19,14 @@ interface ModalContextInterface {
 	setDateEditState: (flag: boolean) => void;
 	content: string | null;
 	setContent: (content: string) => void;
-	teacherName: string | null;
-	setTeacherName: (teacherName: string) => void;
+	teacher: number | null;
+	setTeacher: (id: number) => void;
+	checkStart: boolean;
+	setCheckStart: (flag: boolean) => void;
+	checkEnd: boolean;
+	setCheckEnd: (flag: boolean) => void;
+	lecture: number | null;
+	setLecture: (id: number) => void;
 }
 
 const ModalContext = createContext<ModalContextInterface | null>(null);
@@ -34,7 +40,10 @@ const ModalContextProvider = ({ children }: { children: ReactNode }) => {
 	const [tempEndDate, setTempEndDate] = useState<Moment | null>(null);
 	const [dateEditState, setDateEditState] = useState(false);
 	const [content, setContent] = useState<string | null>(null);
-	const [teacherName, setTeacherName] = useState<string | null>(null);
+	const [teacher, setTeacher] = useState<number | null>(null);
+	const [checkStart, setCheckStart] = useState<boolean>(false);
+	const [checkEnd, setCheckEnd] = useState<boolean>(false);
+	const [lecture, setLecture] = useState<number | null>(null);
 	const value = {
 		isModalOpen,
 		setIsModalOpen,
@@ -52,8 +61,14 @@ const ModalContextProvider = ({ children }: { children: ReactNode }) => {
 		setDateEditState,
 		content,
 		setContent,
-		teacherName,
-		setTeacherName,
+		teacher,
+		setTeacher,
+		checkStart,
+		setCheckStart,
+		checkEnd,
+		setCheckEnd,
+		lecture,
+		setLecture,
 	};
 	return (
 		<ModalContext.Provider value={value}>{children}</ModalContext.Provider>

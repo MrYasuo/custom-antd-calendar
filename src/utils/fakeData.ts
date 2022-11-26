@@ -8,9 +8,8 @@ interface DateDataType {
 	description?: string;
 	startDate?: string;
 	endDate?: string;
-	teacher?: {
-		name?: string;
-	};
+	teacherId: number;
+	lectureId: number;
 }
 
 interface MonthDataType {
@@ -30,6 +29,8 @@ const fakeMonthData: MonthDataType = {
 				description: "description...",
 				startDate: "2022-11-08 20:54:23",
 				endDate: "2022-11-08 21:54:23",
+				lectureId: 1,
+				teacherId: 2,
 			},
 			{
 				id: 2,
@@ -39,6 +40,8 @@ const fakeMonthData: MonthDataType = {
 				description: "description...",
 				startDate: "2022-11-08 20:54:23",
 				endDate: "2022-11-08 21:54:23",
+				lectureId: 2,
+				teacherId: 1,
 			},
 		],
 	},
@@ -52,6 +55,8 @@ const fakeMonthData: MonthDataType = {
 				description: "description...",
 				startDate: "2022-11-08 20:54:23",
 				endDate: "2022-11-08 21:54:23",
+				lectureId: 1,
+				teacherId: 2,
 			},
 			{
 				id: 2,
@@ -61,9 +66,27 @@ const fakeMonthData: MonthDataType = {
 				description: "description...",
 				startDate: "2022-11-08 20:54:23",
 				endDate: "2022-11-08 21:54:23",
+				lectureId: 2,
+				teacherId: 1,
 			},
 		],
 	},
 };
 
-export { fakeMonthData };
+const teacherLists = [
+	{
+		name: "Nguyễn Văn A",
+		id: 1,
+	},
+	{
+		name: "Nguyễn Văn B",
+		id: 2,
+	},
+];
+
+const lectureLists = [
+	{ name: "lecture 1", id: 1 },
+	{ name: "lecture 2", id: 2 },
+];
+
+export { fakeMonthData, teacherLists, lectureLists };
