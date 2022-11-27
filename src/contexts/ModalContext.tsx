@@ -1,33 +1,6 @@
-import { createContext, useContext, useState } from "react";
-import type { ReactNode } from "react";
 import type { Moment } from "moment";
-
-interface ModalContextInterface {
-	isModalOpen: boolean;
-	setIsModalOpen: (flag: boolean) => void;
-	title: string | null;
-	setTitle: (title: string) => void;
-	startDate: string | null;
-	setStartDate: (date: string) => void;
-	endDate: string | null;
-	setEndDate: (date: string) => void;
-	tempStartDate: Moment | null;
-	setTempStartDate: (date: Moment | null) => void;
-	tempEndDate: Moment | null;
-	setTempEndDate: (date: Moment | null) => void;
-	dateEditState: boolean;
-	setDateEditState: (flag: boolean) => void;
-	content: string | null;
-	setContent: (content: string) => void;
-	teacher: number | null;
-	setTeacher: (id: number) => void;
-	checkStart: boolean;
-	setCheckStart: (flag: boolean) => void;
-	checkEnd: boolean;
-	setCheckEnd: (flag: boolean) => void;
-	lecture: number | null;
-	setLecture: (id: number) => void;
-}
+import type { ReactNode } from "react";
+import { createContext, useContext, useState } from "react";
 
 const ModalContext = createContext<ModalContextInterface | null>(null);
 

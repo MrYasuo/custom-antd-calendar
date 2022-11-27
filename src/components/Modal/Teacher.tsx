@@ -1,15 +1,15 @@
+import { useCalendarContext, useModalContext } from "@/contexts";
 import { Select, Space, Typography } from "antd";
-import { teacherLists } from "@/utils";
-import { useModalContext } from "@/contexts";
 
 const Teacher = ({ teacherId }: { teacherId: number | null }) => {
 	const { setTeacher } = useModalContext();
+	const { teachersList } = useCalendarContext();
 	return (
 		<>
 			<Space>
 				<Typography.Text>Teacher:</Typography.Text>
 				<Select
-					options={teacherLists}
+					options={teachersList}
 					fieldNames={{ label: "name", value: "id" }}
 					value={teacherId}
 					placeholder={"Select teacher"}

@@ -1,51 +1,31 @@
-import {
-	Badge,
-	Button,
-	Calendar,
-	Card,
-	Divider,
-	Select,
-	Typography,
-} from "antd";
-import { PresetStatusColorType } from "antd/es/_util/colors";
+import { ClvModal } from "@/components/Modal";
 import { locale } from "@/configs";
-import type { Moment } from "moment";
-import { useContext, useEffect, useLayoutEffect, useState } from "react";
-import { fakeMonthData } from "@/utils";
-import Modal from "./Modal/Modal";
-import { useScript } from "@/hooks";
-import moment from "moment";
 import { useCalendarContext, useModalContext } from "@/contexts";
+import { useScript } from "@/hooks";
+import { fakeLecturesList, fakeMonthData, fakeTeachersList } from "@/utils";
+import { Button, Calendar, Select, Typography } from "antd";
+import type { Moment } from "moment";
+import moment from "moment";
+import { useEffect, useState } from "react";
 
-interface DateDataType {
-	id: number;
-	type?: PresetStatusColorType;
-	content?: string;
-	title?: string;
-	description?: string;
-	startDate?: string;
-	endDate?: string;
-	teacher?: {
-		name?: string;
-	};
-}
-
-interface MonthDataType {
-	[key: number]: {
-		[key: number]: DateDataType[];
-	};
-}
-
-const MyCalendar = () => {
-	const { currentDate, setCurrentDate } = useCalendarContext();
-	const { isModalOpen, setIsModalOpen } = useModalContext();
-	const [currentId, setCurrentId] = useState<number>();
+const ClvCalendar = () => {
+	const {
+		currentDate,
+		setCurrentDate,
+		setTeachersList,
+		setLecturesList,
+		currentId,
+		setCurrentId,
+	} = useCalendarContext();
+	const { setIsModalOpen } = useModalContext();
 	const [currentMonth, setCurrentMonth] = useState<number>(
 		moment().month() + 1
 	);
 	const [fullListData, setFullListData] = useState<MonthDataType>({});
 	useEffect(() => {
 		setFullListData(fakeMonthData);
+		setTeachersList(fakeTeachersList);
+		setLecturesList(fakeLecturesList);
 	}, [currentMonth]);
 	const getListData = (value: Moment | null) => {
 		if (!value) return [];
@@ -65,7 +45,7 @@ const MyCalendar = () => {
 								setCurrentId(item.id);
 								setIsModalOpen(true);
 							}}>
-							<Badge text={item.content} status={item.type} />
+							{item.title + " " + item.teacherId}
 						</Button>
 					);
 				})}
@@ -105,25 +85,32 @@ const MyCalendar = () => {
 
 	const getDataOfDateById = () => {
 		const data = getListData(currentDate).find((item) => item.id === currentId);
-		return data;
+		return data || {};
+	};
+
+	const handleSelect = (date: Moment) => {
+		setCurrentDate(date);
+		setIsModalOpen(true);
+	};
+
+	const handlePanelChange = (date: Moment) => {
+		setCurrentMonth(date.month() + 1);
+		setIsModalOpen(false);
 	};
 
 	return (
-		<div>
+		<div className="ClvCalendar">
 			<Calendar
 				dateCellRender={dateCellRender}
-				onSelect={(date) => {
-					setCurrentDate(date);
-					setIsModalOpen(true);
-				}}
+				onSelect={handleSelect}
 				headerRender={headerRender}
-				onPanelChange={(date) => setCurrentMonth(date.month() + 1)}
+				onPanelChange={handlePanelChange}
 				// @ts-ignore
 				locale={locale}
 			/>
-			<Modal data={getDataOfDateById()}></Modal>
+			<ClvModal data={getDataOfDateById()}></ClvModal>
 		</div>
 	);
 };
 
-export default MyCalendar;
+export default ClvCalendar;

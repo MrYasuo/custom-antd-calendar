@@ -1,43 +1,26 @@
-import { Checkbox, ModalProps, Select, Typography } from "antd";
-import { Modal, Space } from "antd";
-import moment from "moment";
-import { useEffect, useState } from "react";
 import { useCalendarContext, useModalContext } from "@/contexts";
-import Title from "./Title";
+import { Modal, Space } from "antd";
+import { useEffect } from "react";
+import Check from "./Check";
 import DateRange from "./DateRange";
 import Description from "./Description";
-import Teacher from "./Teacher";
-import Check from "./Check";
 import Lecture from "./Lecture";
+import Teacher from "./Teacher";
+import Title from "./Title";
 
-interface MyModalProps extends ModalProps {
-	data: any;
-}
-
-const MyModal = ({ data = {}, ...props }: MyModalProps) => {
-	const {
-		isModalOpen,
-		setIsModalOpen,
-		setTitle,
-		setStartDate,
-		setEndDate,
-		setDateEditState,
-		setContent,
-		setTeacher,
-		setLecture,
-		teacher,
-		lecture,
-	} = useModalContext();
-	const { currentDate } = useCalendarContext();
-
+const ClvModal = ({ data = {}, ...props }: MyModalProps) => {
+	const modalContext = useModalContext();
+	const { currentDate, setCurrentId } = useCalendarContext();
 	useEffect(() => {
-		setTitle(data.title);
-		setStartDate(data.startDate);
-		setEndDate(data.endDate);
-		setDateEditState(!(data.startDate && data.endDate) ? true : false);
-		setContent(data.content);
-		setTeacher(data.teacherId);
-		setLecture(data.lectureId);
+		modalContext.setTitle(data.title!);
+		modalContext.setStartDate(data.startDate!);
+		modalContext.setEndDate(data.endDate!);
+		modalContext.setDateEditState(
+			!(data.startDate && data.endDate) ? true : false
+		);
+		modalContext.setContent(data.content!);
+		modalContext.setTeacher(data.teacherId!);
+		modalContext.setLecture(data.lectureId!);
 	}, [
 		data.title,
 		data.teacherId,
@@ -47,13 +30,21 @@ const MyModal = ({ data = {}, ...props }: MyModalProps) => {
 		data.endDate,
 		currentDate,
 	]);
+	const handleOk = () => {
+		modalContext.setIsModalOpen(false);
+		setCurrentId(null);
+	};
+	const handleCancel = () => {
+		modalContext.setIsModalOpen(false);
+		setCurrentId(null);
+	};
 	return (
 		<Modal
 			{...props}
 			maskClosable={false}
-			open={isModalOpen}
-			onOk={() => setIsModalOpen(false)}
-			onCancel={() => setIsModalOpen(false)}
+			open={modalContext.isModalOpen}
+			onOk={handleOk}
+			onCancel={handleCancel}
 			title={
 				<Space direction="vertical" style={{ width: "100%" }}>
 					<Title />
@@ -62,12 +53,12 @@ const MyModal = ({ data = {}, ...props }: MyModalProps) => {
 			}>
 			<Space direction="vertical">
 				<Description />
-				<Teacher teacherId={teacher} />
-				<Lecture lectureId={lecture} />
+				<Teacher teacherId={modalContext.teacher} />
+				<Lecture lectureId={modalContext.lecture} />
 				<Check />
 			</Space>
 		</Modal>
 	);
 };
 
-export default MyModal;
+export default ClvModal;

@@ -1,23 +1,3 @@
-import { PresetStatusColorType } from "antd/es/_util/colors";
-
-interface DateDataType {
-	id: number;
-	type?: PresetStatusColorType;
-	content?: string;
-	title?: string;
-	description?: string;
-	startDate?: string;
-	endDate?: string;
-	teacherId: number;
-	lectureId: number;
-}
-
-interface MonthDataType {
-	[key: number]: {
-		[key: number]: DateDataType[];
-	};
-}
-
 const fakeMonthData: MonthDataType = {
 	11: {
 		8: [
@@ -73,7 +53,7 @@ const fakeMonthData: MonthDataType = {
 	},
 };
 
-const teacherLists = [
+const fakeTeachersList = [
 	{
 		name: "Nguyễn Văn A",
 		id: 1,
@@ -84,9 +64,9 @@ const teacherLists = [
 	},
 ];
 
-const lectureLists = [
+const fakeLecturesList = [
 	{ name: "lecture 1", id: 1 },
 	{ name: "lecture 2", id: 2 },
 ];
 
-export { fakeMonthData, teacherLists, lectureLists };
+export { fakeMonthData, fakeTeachersList, fakeLecturesList };

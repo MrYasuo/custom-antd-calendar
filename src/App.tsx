@@ -1,4 +1,4 @@
-import { Calendar } from "@/components";
+import { ClvCalendar } from "@/components";
 import { CalendarContextProvider, ModalContextProvider } from "@/contexts";
 
 const App = () => {
@@ -6,7 +6,7 @@ const App = () => {
 		<div className="App">
 			<CalendarContextProvider>
 				<ModalContextProvider>
-					<Calendar />
+					<ClvCalendar />
 				</ModalContextProvider>
 			</CalendarContextProvider>
 		</div>

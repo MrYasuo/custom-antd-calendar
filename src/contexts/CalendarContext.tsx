@@ -1,18 +1,26 @@
-import { createContext, useContext, useState } from "react";
-import type { ReactNode } from "react";
 import type { Moment } from "moment";
-
-interface CalendarContextInterface {
-	currentDate: Moment | null;
-	setCurrentDate: (date: Moment | null) => void;
-}
+import type { ReactNode } from "react";
+import { createContext, useContext, useState } from "react";
 
 const CalendarContext = createContext<CalendarContextInterface | null>(null);
 
 const CalendarContextProvider = ({ children }: { children: ReactNode }) => {
 	const [currentDate, setCurrentDate] = useState<Moment | null>(null);
+	const [teachersList, setTeachersList] = useState<Teacher[]>([]);
+	const [lecturesList, setLecturesList] = useState<Lecture[]>([]);
+	const [currentId, setCurrentId] = useState<number | null>(null);
+	const value = {
+		currentDate,
+		setCurrentDate,
+		teachersList,
+		setTeachersList,
+		lecturesList,
+		setLecturesList,
+		currentId,
+		setCurrentId,
+	};
 	return (
-		<CalendarContext.Provider value={{ currentDate, setCurrentDate }}>
+		<CalendarContext.Provider value={value}>
 			{children}
 		</CalendarContext.Provider>
 	);
