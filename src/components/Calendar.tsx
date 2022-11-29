@@ -7,6 +7,7 @@ import { Button, Calendar, Select, Typography } from "antd";
 import type { Moment } from "moment";
 import moment from "moment";
 import { useEffect, useState } from "react";
+import "./ClvCalendar.css";
 
 const ClvCalendar = () => {
 	const {
@@ -18,15 +19,12 @@ const ClvCalendar = () => {
 		setCurrentId,
 	} = useCalendarContext();
 	const { setIsModalOpen } = useModalContext();
-	const [currentMonth, setCurrentMonth] = useState<number>(
-		moment().month() + 1
-	);
 	const [fullListData, setFullListData] = useState<MonthDataType>({});
 	useEffect(() => {
 		setFullListData(fakeMonthData);
 		setTeachersList(fakeTeachersList);
 		setLecturesList(fakeLecturesList);
-	}, [currentMonth]);
+	}, [currentDate.month()]);
 	const getListData = (value: Moment | null) => {
 		if (!value) return [];
 		if (!fullListData[value.month() + 1]) return [];
@@ -61,21 +59,22 @@ const ClvCalendar = () => {
 				{month}
 			</Select.Option>
 		));
-		const currentMonth = value.month();
 
 		return (
 			<div style={{ padding: 8, display: "flex", width: "100%" }}>
 				<Typography.Title level={4} style={{ width: "100%" }}>
-					Custom header
+					{`Year: ${value.year()}`}
 				</Typography.Title>
 				<Select
 					size="middle"
 					dropdownMatchSelectWidth={false}
-					value={currentMonth}
+					value={currentDate.month()}
 					onChange={(newMonth) => {
-						const now = value.month(newMonth);
+						const clone = value.clone();
+						const now = clone.month(newMonth);
 						onChange(now);
-						setCurrentMonth(newMonth + 1);
+						setCurrentDate(now);
+						setIsModalOpen(false);
 					}}>
 					{monthOptions}
 				</Select>
@@ -88,14 +87,14 @@ const ClvCalendar = () => {
 		return data || {};
 	};
 
+	console.table({
+		currentDate: currentDate.date(),
+		currentMonth: currentDate.month() + 1,
+	});
+
 	const handleSelect = (date: Moment) => {
 		setCurrentDate(date);
 		setIsModalOpen(true);
-	};
-
-	const handlePanelChange = (date: Moment) => {
-		setCurrentMonth(date.month() + 1);
-		setIsModalOpen(false);
 	};
 
 	return (
@@ -104,7 +103,6 @@ const ClvCalendar = () => {
 				dateCellRender={dateCellRender}
 				onSelect={handleSelect}
 				headerRender={headerRender}
-				onPanelChange={handlePanelChange}
 				// @ts-ignore
 				locale={locale}
 			/>
