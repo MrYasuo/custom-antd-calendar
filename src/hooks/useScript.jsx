@@ -1,12 +1,6 @@
-// @ts-nocheck
-import { ScriptHTMLAttributes, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
-interface MyHTMLScriptElement {
-	src: string;
-	async: boolean;
-}
-
-const useScript = (src: string) => {
+const useScript = (src) => {
 	const [status, setStatus] = useState(src ? "loading" : "idle");
 	useEffect(
 		() => {

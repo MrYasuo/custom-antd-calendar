@@ -1,7 +1,7 @@
 import { useCalendarContext, useModalContext } from "@/contexts";
 import { Select, Space, Typography } from "antd";
 
-const Teacher = ({ teacherId }: { teacherId: number | null }) => {
+const Teacher = ({ teacherId }) => {
 	const { setTeacher } = useModalContext();
 	const { teachersList } = useCalendarContext();
 	return (

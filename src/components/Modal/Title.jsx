@@ -1,9 +1,8 @@
 import { useModalContext } from "@/contexts";
-import { EditOutlined } from "@ant-design/icons";
-import { Button, Input, Space, Typography } from "antd";
+import { Input, Space, Typography } from "antd";
 
 const Title = () => {
-	const { title, setTitle, setIsModalOpen } = useModalContext();
+	const { title, setTitle } = useModalContext();
 	return (
 		<>
 			{title ? (
@@ -17,7 +16,7 @@ const Title = () => {
 					<Input
 						placeholder="Title"
 						style={{ width: "80%" }}
-						onPressEnter={(e) => setTitle((e.target as HTMLInputElement).value)}
+						onPressEnter={(e) => setTitle(e.target.value)}
 						allowClear
 					/>
 				</Space.Compact>

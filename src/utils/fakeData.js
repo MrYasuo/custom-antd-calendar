@@ -1,4 +1,4 @@
-const fakeMonthData: MonthDataType = {
+const fakeMonthData = {
 	11: {
 		8: [
 			{

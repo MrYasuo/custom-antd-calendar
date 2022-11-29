@@ -8,19 +8,19 @@ import Lecture from "./Lecture";
 import Teacher from "./Teacher";
 import Title from "./Title";
 
-const ClvModal = ({ data = {}, ...props }: MyModalProps) => {
+const ClvModal = ({ data = {}, ...props }) => {
 	const modalContext = useModalContext();
 	const { currentDate, setCurrentId } = useCalendarContext();
 	useEffect(() => {
-		modalContext.setTitle(data.title!);
-		modalContext.setStartDate(data.startDate!);
-		modalContext.setEndDate(data.endDate!);
+		modalContext.setTitle(data.title);
+		modalContext.setStartDate(data.startDate);
+		modalContext.setEndDate(data.endDate);
 		modalContext.setDateEditState(
 			!(data.startDate && data.endDate) ? true : false
 		);
-		modalContext.setContent(data.content!);
-		modalContext.setTeacher(data.teacherId!);
-		modalContext.setLecture(data.lectureId!);
+		modalContext.setContent(data.content);
+		modalContext.setTeacher(data.teacherId);
+		modalContext.setLecture(data.lectureId);
 	}, [
 		data.title,
 		data.teacherId,

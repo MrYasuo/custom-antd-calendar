@@ -2,7 +2,7 @@ import { useCalendarContext, useModalContext } from "@/contexts";
 import { Select, Space, Typography } from "antd";
 import { Link } from "react-router-dom";
 
-const Lecture = ({ lectureId }: { lectureId: number | null }) => {
+const Lecture = ({ lectureId }) => {
 	const { setLecture } = useModalContext();
 	const { lecturesList } = useCalendarContext();
 	return (

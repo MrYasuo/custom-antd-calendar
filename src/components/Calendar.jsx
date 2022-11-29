@@ -4,7 +4,6 @@ import { useCalendarContext, useModalContext } from "@/contexts";
 import { useScript } from "@/hooks";
 import { fakeLecturesList, fakeMonthData, fakeTeachersList } from "@/utils";
 import { Button, Calendar, Select, Typography } from "antd";
-import type { Moment } from "moment";
 import moment from "moment";
 import { useEffect, useState } from "react";
 import "./ClvCalendar.css";
@@ -19,18 +18,18 @@ const ClvCalendar = () => {
 		setCurrentId,
 	} = useCalendarContext();
 	const { setIsModalOpen } = useModalContext();
-	const [fullListData, setFullListData] = useState<MonthDataType>({});
+	const [fullListData, setFullListData] = useState({});
 	useEffect(() => {
 		setFullListData(fakeMonthData);
 		setTeachersList(fakeTeachersList);
 		setLecturesList(fakeLecturesList);
 	}, [currentDate.month()]);
-	const getListData = (value: Moment | null) => {
+	const getListData = (value) => {
 		if (!value) return [];
 		if (!fullListData[value.month() + 1]) return [];
 		return fullListData[value.month() + 1][value.date()] || [];
 	};
-	const dateCellRender = (value: Moment) => {
+	const dateCellRender = (value) => {
 		const listData = getListData(value);
 		return (
 			<>
@@ -92,7 +91,7 @@ const ClvCalendar = () => {
 		currentMonth: currentDate.month() + 1,
 	});
 
-	const handleSelect = (date: Moment) => {
+	const handleSelect = (date) => {
 		setCurrentDate(date);
 		setIsModalOpen(true);
 	};

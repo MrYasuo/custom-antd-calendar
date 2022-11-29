@@ -17,9 +17,7 @@ const Description = () => {
 					<Input
 						placeholder="Title"
 						style={{ width: "80%" }}
-						onPressEnter={(e) =>
-							setContent((e.target as HTMLInputElement).value)
-						}
+						onPressEnter={(e) => setContent(e.target.value)}
 						allowClear
 					/>
 				</Space.Compact>
